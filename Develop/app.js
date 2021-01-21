@@ -68,30 +68,85 @@ const engineer = [
 
     {
         type: 'input',
-        message: 'What is the engineers office number?',
-        name: 'officeNum'
+        message: 'What is the engineers email?',
+        name: 'email'
     },
-]
+];
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+const intern = [
+    {
+        type: 'input',
+        message: 'What is the interns name?',
+        name: 'name'
+    },
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+    {
+        type: 'input',
+        message: 'What is the interns ID?',
+        name: 'id'
+    },
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
+    {
+        type: 'input',
+        message: 'What is the interns email?',
+        name: 'email'
+    },
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
+    {
+        type: 'input',
+        message: 'What school did your intern attend?',
+        name: 'school'
+    },
+];
 
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+addEmployee = () => {
+    inquirer.prompt(employee).then(function (data) {
+        if (data.role === 'Manager') {
+            addManager();
+        }
+        if (data.role === 'Engineer') {
+            addEngineer();
+        }
+        if (data.role === 'Intern') {
+            addIntern();
+        } else {
+            finishAdding();
+        }
+    });
+};
+
+addManager = () => {
+    inquirer.promp(manager).then(function (data) {
+        const manager = new Manager (data.name, data.id, data.email, data.officeNum);
+        employees.push(manager);
+        addEmployee();
+    });
+};
+
+addEngineer = () => {
+    inquirer.promp(en).then(function (data) {
+        const engineer = new Engineer (data.name, data.id, data.email, data.github);
+        employees.push(engineer);
+        addEmployee();
+    });
+};
+
+addIntern = () => {
+    inquirer.promp(intern).then(function (data) {
+        const intern = new Intern (data.name, data.id, data.email, data.school);
+        employees.push(intern);
+        addEmployee();
+    });
+};
+
+finishAdding = () => {
+    writeToFile
+};
+
+writeToFile = () => {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR);
+      }
+      fs.writeFileSync(outputPath, render(employees), "utf-8");
+    };
+
