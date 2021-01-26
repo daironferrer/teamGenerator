@@ -17,7 +17,7 @@ const employee = [
         type: 'list',
         message: 'What type of employee are you adding?',
         name: 'role',
-        choices: ['Manager', 'Engineer', 'Intern', 'Finished']
+        choices: ['Manager', 'Engineer', 'Intern', 'I am done']
     },
 ];
 
@@ -109,8 +109,7 @@ addEmployee = () => {
         }
         if (data.role === 'Intern') {
             addIntern();
-        } 
-        else {
+        } else {
             finishAdding();
         }
     });
@@ -141,7 +140,7 @@ addIntern = () => {
 };
 
 finishAdding = () => {
-    writeToFile
+    writeToFile();
    };
 
 
