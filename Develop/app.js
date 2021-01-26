@@ -17,7 +17,7 @@ const employee = [
         type: 'list',
         message: 'What type of employee are you adding?',
         name: 'role',
-        choices: ['Manager', 'Engineer', 'Intern']
+        choices: ['Manager', 'Engineer', 'Intern', 'Finished']
     },
 ];
 
@@ -109,14 +109,15 @@ addEmployee = () => {
         }
         if (data.role === 'Intern') {
             addIntern();
-        } else {
+        } 
+        else {
             finishAdding();
         }
     });
 };
 
 addManager = () => {
-    inquirer.promp(manager).then(function (data) {
+    inquirer.prompt(manager).then(function (data) {
         const manager = new Manager (data.name, data.id, data.email, data.officeNum);
         employees.push(manager);
         addEmployee();
@@ -124,7 +125,7 @@ addManager = () => {
 };
 
 addEngineer = () => {
-    inquirer.promp(en).then(function (data) {
+    inquirer.prompt(engineer).then(function (data) {
         const engineer = new Engineer (data.name, data.id, data.email, data.github);
         employees.push(engineer);
         addEmployee();
@@ -132,7 +133,7 @@ addEngineer = () => {
 };
 
 addIntern = () => {
-    inquirer.promp(intern).then(function (data) {
+    inquirer.prompt(intern).then(function (data) {
         const intern = new Intern (data.name, data.id, data.email, data.school);
         employees.push(intern);
         addEmployee();
@@ -141,7 +142,8 @@ addIntern = () => {
 
 finishAdding = () => {
     writeToFile
-};
+   };
+
 
 writeToFile = () => {
     if (!fs.existsSync(OUTPUT_DIR)) {
@@ -150,3 +152,9 @@ writeToFile = () => {
       fs.writeFileSync(outputPath, render(employees), "utf-8");
     };
 
+
+init = () => {
+    addEmployee();
+};
+
+init();
